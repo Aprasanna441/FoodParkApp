@@ -4,8 +4,29 @@ import {View, TextInput, StyleSheet, Text,TouchableHighlight} from 'react-native
 const Login = () => {
    
     const [data,setData]=useState({})
-    const handleSubmit=()=>{
-        console.warn(data)
+    
+      const handleSubmit=async ()=>{
+        fetch('http://127.0.0.1:8080/api/account/login',{
+          method:"POST",
+          headers:{
+            'Content-Type':'application/json',
+            
+          },
+          body:JSON.stringify({
+            email:"aprasanna@gmail.com",
+            password:"Headstart@123"
+          })
+
+        }).then((response) => response.json()) 
+        .catch((error) => { 
+          // Handle any errors that occur 
+          console.error(error); 
+      })
+        
+        console.warn(result.message)
+
+
+    
     }
   return (
     <View style={styles.main}>

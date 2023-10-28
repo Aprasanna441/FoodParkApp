@@ -1,13 +1,26 @@
 import React, {useState} from 'react';
-import {View, TextInput, StyleSheet, Text,TouchableHighlight} from 'react-native';
+import {View, TextInput, StyleSheet,ScrollView, Text,TouchableHighlight} from 'react-native';
 
 const Signup = () => {
    
     const [data,setData]=useState({})
-    const handleSubmit=()=>{
-        console.warn(data)
+    const handleSubmit=async ()=>{
+        const res=await fetch('http://localhost:8080/api/users/signup',{
+          method:"POST",
+          headers:{
+            'Content-Type':'application/json',
+            
+          },
+          body:JSON.stringify(data)
+
+        })
+        const result=res.json()
+        console.log(result)
+
+
     }
   return (
+      
     <View style={styles.main}>
       <Text style={styles.heading}>Login</Text>
 
@@ -17,22 +30,23 @@ const Signup = () => {
         <TextInput style={styles.textInput} onChangeText={(text)=>setData({...data,location:text})} placeholder=" Location" />
         <TextInput style={styles.textInput} onChangeText={(text)=>setData({...data,email:text})} placeholder=" Email" />
         <TextInput style={styles.textInput} onChangeText={(text)=>setData({...data,password:text})} placeholder="Password" />
+        <TextInput style={styles.textInput} onChangeText={(text)=>setData({...data,confirm_password:text})} placeholder="Confirm Password" />
         <TouchableHighlight  onPress={handleSubmit}>
       <Text  style={styles.submitButton}>SIGNUP</Text>
     </TouchableHighlight>
       </View>
     </View>
+      
   );
 };
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    width:1000,
     
-    justifyContent: 'center',
+    
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    // backgroundColor: 'red',
-    
+   
   },
   textInput: {
     fontWeight:'bold',
@@ -42,13 +56,13 @@ const styles = StyleSheet.create({
     fontSize:20,
     textAlign:'center',
     paddingHorizontal:70,
-    paddingVertical:15,
+    
     margin:10,
     borderRadius:40,
     shadowColor:'black',
     elevation:10,
     shadowOpacity:4,
-        margin: 10,
+        
   },
   heading: {
     fontWeight: 'bold',

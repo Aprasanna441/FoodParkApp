@@ -3,14 +3,15 @@ import {View,Text, StyleSheet} from 'react-native'
 
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import LoginSignup from './pages/LoginSignup'
 
 
 
 const App = () => {
   return (
     
-    <View style={styles.main}>
-      <Signup/>
+    <View  style={styles.main}>
+      <LoginSignup/>
     </View>
    
   )
